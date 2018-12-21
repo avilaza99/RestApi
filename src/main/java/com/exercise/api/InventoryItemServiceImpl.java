@@ -17,8 +17,13 @@ public class InventoryItemServiceImpl implements InventoryItemService {
     }
 
     @Override
-    public void saveInventoryItem(InventoryItemDto inventoryItemDto) {
-        repository.save(InventoryItemConverter.dtoToEntity(inventoryItemDto));
+    public boolean saveInventoryItem(InventoryItemDto inventoryItemDto) {
+        try {
+            repository.save(InventoryItemConverter.dtoToEntity(inventoryItemDto));
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 
     @Override
@@ -28,19 +33,23 @@ public class InventoryItemServiceImpl implements InventoryItemService {
 
     @Override
     public InventoryItemDto updateInventoryItem(Integer inventoryItemId, InventoryItemDto inventoryItemDto) {
-        if(repository.existsById(inventoryItemId))
-        {
+        try{
             InventoryItem inventoryItem = repository.getOne(inventoryItemId);
             inventoryItemDto.setInventoryItemId(inventoryItemId);
             repository.save(InventoryItemConverter.dtoToEntity(inventoryItemDto));
+            return inventoryItemDto;
+        }catch(Exception ex){
+            return null;
         }
-        return inventoryItemDto;
     }
 
     @Override
-    public  void deleteInventoryItem(Integer inventoryItemId){
-        InventoryItem inventoryItem = repository.getOne(inventoryItemId);
-        if(inventoryItem!=null)
-            repository.delete(inventoryItem);
+    public  boolean deleteInventoryItem(Integer inventoryItemId){
+        try {
+            repository.deleteById(inventoryItemId);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 }

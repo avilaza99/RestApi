@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -19,8 +20,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo metadata(){
-        ApiInfo apiInfo = new ApiInfo("Spring Boot REST API","Spring Boot REST API for Inventory Item Catalog","1.0","Terms of service",
-        "Jonathan Avila","","");
-        return apiInfo;
+        return new ApiInfo("Spring Boot REST API","Spring Boot REST API for Inventory Item Catalog","1.0",ApiInfo.DEFAULT.getTermsOfServiceUrl(),
+        new Contact("Jonathan Avila","https://www.linkedin.com/in/jonathanavilasalazar","avilaza99@yahoo.com.mx"),ApiInfo.DEFAULT.getLicense(),ApiInfo.DEFAULT.getLicenseUrl(),ApiInfo.DEFAULT.getVendorExtensions());
     }
 }

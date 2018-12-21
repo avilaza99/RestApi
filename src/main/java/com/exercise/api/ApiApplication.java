@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 
 
 @SpringBootApplication
@@ -18,9 +19,8 @@ public class ApiApplication {
 
     @PostConstruct
     public void setupDbWithData(){
-        InventoryItem inventoryItem= new InventoryItem("Jonathan");
-        //inventoryItem = repository.save(inventoryItem);
-        repository.saveAndFlush(inventoryItem);
+        InventoryItem inventoryItem= new InventoryItem("item01",new BigDecimal(10),"1item");
+        repository.save(inventoryItem);
     }
 
 }
