@@ -28,7 +28,7 @@ public class InventoryItemController {
     @PostMapping
     public ResponseEntity saveInventoryItem(@RequestBody InventoryItemDto inventoryItemDto) {
         if(inventoryItemService.saveInventoryItem(inventoryItemDto))
-            return new ResponseEntity("Inventory Item succesfully created",HttpStatus.CREATED);
+            return new ResponseEntity("Inventory Item succesfully created",HttpStatus.OK);
         return new ResponseEntity("ERROR: Please check with your local admin",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -46,5 +46,4 @@ public class InventoryItemController {
             return new ResponseEntity(HttpStatus.OK);
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
-
 }
