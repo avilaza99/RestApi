@@ -1,5 +1,8 @@
 package com.exercise.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping({"/inventory"})
+@Api(value="RestAPI", description="Operations pertaining to inventory items")
 public class InventoryItemController {
 
     @Autowired
@@ -33,6 +37,9 @@ public class InventoryItemController {
     }
 
     @PutMapping(path = {"/{inventoryItemId}"})
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "The inventory item you were trying to reach is not found")
+    })
     public ResponseEntity<InventoryItemDto> updateInventoryItem(@PathVariable int inventoryItemId, @RequestBody InventoryItemDto inventoryItemDto){
         InventoryItemDto inventoryItemDto2Return = inventoryItemService.updateInventoryItem(inventoryItemId,inventoryItemDto);
         if(inventoryItemDto2Return!=null)
@@ -41,6 +48,9 @@ public class InventoryItemController {
     }
 
     @DeleteMapping(path ={"/{inventoryItemId}"})
+    @ApiResponses(value = {
+            @ApiResponse(code = 404, message = "The inventory item you were trying to reach is not found")
+    })
     public ResponseEntity deleteInventoryItem(@PathVariable int inventoryItemId) {
         if(inventoryItemService.deleteInventoryItem(inventoryItemId))
             return new ResponseEntity(HttpStatus.OK);
