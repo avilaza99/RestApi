@@ -46,5 +46,4 @@ public class InventoryItemController {
             return new ResponseEntity(HttpStatus.OK);
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
-
 }
