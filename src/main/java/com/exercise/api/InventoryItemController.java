@@ -20,7 +20,6 @@ public class InventoryItemController {
 
     @GetMapping
     public ResponseEntity<List<InventoryItemDto>>getAllInventoryItems() {
-
         return new ResponseEntity<>(inventoryItemService.getAllInventoryItems(),HttpStatus.OK);
     }
 
@@ -32,8 +31,8 @@ public class InventoryItemController {
     @PostMapping
     public ResponseEntity saveInventoryItem(@RequestBody InventoryItemDto inventoryItemDto) {
         if(inventoryItemService.saveInventoryItem(inventoryItemDto))
-            return new ResponseEntity("Inventory Item succesfully created",HttpStatus.OK);
-        return new ResponseEntity("ERROR: Please check with your local admin",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("{\"message\":\"Inventory Item succesfully created\"}",HttpStatus.OK);
+        return new ResponseEntity("{\"message\":\"Please check with your local admin\"}",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PutMapping(path = {"/{inventoryItemId}"})
@@ -53,7 +52,7 @@ public class InventoryItemController {
     })
     public ResponseEntity deleteInventoryItem(@PathVariable int inventoryItemId) {
         if(inventoryItemService.deleteInventoryItem(inventoryItemId))
-            return new ResponseEntity(HttpStatus.OK);
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity("{\"message\":\"Inventory Item succesfully deleted\"}",HttpStatus.OK);
+        return new ResponseEntity("{\"message\":\"The inventory item you were trying to reach is not found\"}",HttpStatus.NOT_FOUND);
     }
 }
