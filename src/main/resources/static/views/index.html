@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Inventory Items Web Page</title>
+    </head>
+    <body ng-app="app">
+        <hr/>
+        <div class="container" ng-controller="InventoryItemController">
+            <table>
+                <tr>
+                    <td>
+                        <label>Inventory Item Name</label><input type="hidden" ng-model="inventoryItemDto.inventoryItemId"/>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="inventoryItemDto.inventoryItemName" class="input-sm spacing"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Inventory Item Amount</label>
+                    </td>
+                    <td>
+                        <input type="number" ng-minlength="0" ng-model="inventoryItemDto.inventoryItemAmount" class="input-sm spacing"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Inventory Item Code</label>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="inventoryItemDto.inventoryItemCode" class="input-sm spacing"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button ng-hide="inventoryItemUpdateBoolean" ng-click="saveInventoryItem()" class="btn btn-sm btn-info">Save Inventory Item</button>
+                        <button class="btn btn-success" ng-show="inventoryItemUpdateBoolean" ng-click="updateInventoryItem(inventoryItemDto)">Update Inventory Item</button>
+                        <button class="btn btn-danger" ng-show="inventoryItemUpdateBoolean" ng-click="cancelUpdateInventoryItem()">Cancel Update Inventory Item</button>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+            <hr/>
+            <hr/>
+            <table class="table table-hover" ng-hide="inventoryItemUpdateBoolean">
+                <thead>
+                <tr>
+                    <th>Inventory Item ID</th>
+                    <th>Inventory Item Name</th>
+                    <th>Inventory Item Amount</th>
+                    <th>Inventory Item Code</th>
+                    <th width="20%"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="inventoryItem in allInventoryItems | orderBy : 'inventoryItemId'">
+                        <td>{{inventoryItem.inventoryItemId}}</td>
+                        <td>{{inventoryItem.inventoryItemName}}</td>
+                        <td>{{inventoryItem.inventoryItemAmount}}</td>
+                        <td>{{inventoryItem.inventoryItemCode}}</td>
+                        <td>
+                            <button class="btn btn-success" ng-click="enableUpdateInventoryItem(inventoryItem)">Update Inventory Item</button>
+                            <button class="btn btn-danger" ng-click="deleteInventoryItem(inventoryItem.inventoryItemId)">Delete Inventory Item</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/InventoryItemController.js"></script>
+    <script src="js/app/InventoryItemService.js"></script>
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/app/app.css"/>
+</html>
